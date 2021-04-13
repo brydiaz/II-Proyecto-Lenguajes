@@ -50,3 +50,17 @@
         result
         (iter (- i 1)
               (cons (nth (nth M (- i 1)) n) result)))))
+              
+;Funcion que edita un elemento de la matriz           
+(define (editar-elemento-matriz matriz i j valor)
+  (cond
+    [(empty? matriz) '()]
+    [(= i 0)      (cons (list-with (car matriz) j valor)
+                        (cdr matriz))]
+    [else         (cons (car matriz)
+                        (editar-elemento-matriz (cdr matriz) (- i 1) j valor))]))
+
+;Pruebas
+;(define M1 (make-matrix 4))
+;(editar-elemento-matriz M1 2 2 5)
+;((0 1 0 0) (0 0 0 0) (0 0 5 0) (1 0 1 1))
