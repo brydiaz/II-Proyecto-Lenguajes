@@ -10,7 +10,7 @@
                  (let inner ((j n) (row '()))
                    (if (= j 0)
                        row
-                       (inner (- j 1) (cons (if (= i j) (random 2) (random 2)) row))))
+                       (inner (- j 1) (cons (if (= i j) 0 0) row))))
                  result)))))
 ;INPUT
 (define (get-number) 
