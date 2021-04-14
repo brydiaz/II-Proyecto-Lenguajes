@@ -13,13 +13,16 @@
                        (inner (- j 1) (cons (if (= i j) (random 2) (random 2)) row))))
                  result)))))
 ;INPUT
-(define (get-number) 
-   (display "Ingrese el tamaño del tablero: ")
+(define (get-number choice)
+  (cond
+    [(eq? choice 0)(display "Ingrese el tamaño del tablero: ")]
+    [(eq? choice 1)(display "Ingrese el punto de partida en X: ")]
+    [(eq? choice 2)(display "Ingrese el punto de partida en Y: ")])
    (string->number(read-line (current-input-port) 'any)))
 
 
 ;OBTENEMOS EL TAMAÑO DEL TABLERO
-(define table-size (get-number))
+(define table-size (get-number 0))
 
 ;EN TABLE QUEDA EL TABLERO
 (define table (make-matrix table-size))
@@ -52,15 +55,23 @@
               (cons (nth (nth M (- i 1)) n) result)))))
               
 ;Funcion que edita un elemento de la matriz           
-(define (editar-elemento-matriz matriz i j valor)
+(define (set-element-matrix matrix i j value)
   (cond
-    [(empty? matriz) '()]
-    [(= i 0)      (cons (list-with (car matriz) j valor)
-                        (cdr matriz))]
-    [else         (cons (car matriz)
-                        (editar-elemento-matriz (cdr matriz) (- i 1) j valor))]))
+    [(empty? matrix) '()]
+    [(= i 0)      (cons (list-with (car matrix) j value)
+                        (cdr matrix))]
+    [else         (cons (car matrix)
+                        (set-element-matrix (cdr matrix) (- i 1) j value))]))
 
-;Pruebas
-;(define M1 (make-matrix 4))
-;(editar-elemento-matriz M1 2 2 5)
-;((0 1 0 0) (0 0 0 0) (0 0 5 0) (1 0 1 1))
+;CREA UN PUNTO ALEATORIO EN EL TABLERO
+(define (random-make-point table distintion)
+  (set-element-matrix table (random table-size) (random table-size) distintion))
+
+;PEDIR PUNTO DE PARTIDA
+
+(define (user-make-point table distintion)
+  (set-element-matrix table (get-number 1) (get-number 2) distintion))
+
+;FINAL-TABLE GUARDA EL LABERINTO GENERADO
+(define table-with-come (user-make-point table 2))
+(define final-table (random-make-point table-with-come 3))
