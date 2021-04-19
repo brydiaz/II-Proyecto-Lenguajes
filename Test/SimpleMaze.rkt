@@ -58,6 +58,7 @@
         (writeln 'Done)
 )))
 
+;NO SE HA USADO TODAVIA
 (define make-final-matrix (λ(x i c)(
                                     
     if (not (= i c) )
@@ -69,43 +70,36 @@
      )
 )
 
-(define (x3 x i c)
-  (cond
-    [(= i c )'()]
-    [else  (append (list (car x)) (make-final-matrix (cdr x) (add1 i) c))]))
 
 
 ;LABERINTO DE 8X8
 (define maze (make-maze 8 1))
 
+;PARA PRUEBAS
 (define maze-test '(
   (0 0 0 0 0 0 0 0)
   (0 1 0 1 1 1 1 0)
   (0 1 0 1 0 0 1 0)
   (0 1 0 1 0 0 1 0)
   (0 1 1 1 0 2 1 0)
-  (0 0 0 0 0 0 0 0)
-  (0 1 0 1 1 1 0 0)
+  (0 1 0 0 0 1 0 0)
+  (0 1 1 1 1 1 0 0)
   (0 0 0 0 0 0 0 0)))
-
-;(find-path maze-test 1 1)
-;(build-final-matrix maze 0 10)
-;(make-final-matrix maze 0 10)
-(define (find-path maze x y c)
-  
+;OBTIENE EL CAMINO
+(define (find-path maze x y)
   (cond
-    [(= (get maze x y) 2) (print maze)]
-    [else
-     
-     (cond [( or (= (get maze (add1 x) y) 1) (= (get maze (add1 x) y) 2))
-            (find-path (set maze x y 4) (add1 x) y c)])
-     (cond [( or (= (get maze (sub1 x) y) 1) (= (get maze (sub1 x) y) 2))
-            (find-path (set maze x y 4) (sub1 x) y c)])
-     
-     (cond [( or (= (get maze x (add1 y)) 1) (= (get maze x (add1 y)) 2))
-            (find-path (set maze x y 4) x (add1 y) c)])
-     (cond [( or (= (get maze x (sub1 y)) 1) (= (get maze x (sub1 y)) 2))
-            (find-path (set maze x y 4) x (sub1 y) c)])
-     ]))
+    [(= (get maze x y) 2) maze]
+    [( or (= (get maze (add1 x) y) 1) (= (get maze (add1 x) y) 2))
+            (find-path (set maze x y 4) (add1 x) y)]
+    [( or (= (get maze (sub1 x) y) 1) (= (get maze (sub1 x) y) 2))
+            (find-path (set maze x y 4) (sub1 x) y)]
+    [( or (= (get maze x (add1 y)) 1) (= (get maze x (add1 y)) 2))
+            (find-path (set maze x y 4) x (add1 y))]
+    [( or (= (get maze x (sub1 y)) 1) (= (get maze x (sub1 y)) 2))
+            (find-path (set maze x y 4) x (sub1 y))]
+    [else -1]
+    )
+  )
 
-(define x1 (find-path  maze-test 1 1 '()))
+;ACA SE VE LA SOLUCION
+(define x1 (find-path  maze-test 1 1 ))
