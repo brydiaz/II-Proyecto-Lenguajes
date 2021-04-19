@@ -51,26 +51,34 @@
 ;IMPRIMOS EL LABERINTO
 (define (print1 x)
     (cond
-      [(empty? x) "LABERINTO"]
+      [(empty? x) "LABERINTO\n"]
       [else (writeln(car x)) (print1 (cdr x))]))
 
 (define make-final-matrix (λ(x i c)(
                                     
     if (not (= i c) )
        (begin
-        (append (list (car x)) (make-final-matrix (cdr x) (add1 i) c))
+        (append (list {(car x)) (make-final-matrix (cdr x) (add1 i) c))
         )
        '()
        )
      )
 )
 
-
+(define print (λ(x)(
+    if (not (empty? x) )
+       (begin
+        (writeln (car x))
+        (print (cdr x))
+        )
+        (writeln 'Done)
+)))
 
 ;LABERINTO DE 8X8
 (define maze (make-maze 8 1))
 
 (define maze-test '(
+                    o0ul
   (0 0 0 0 0 0 0 0)
   (0 1 0 1 1 1 1 0)
   (0 1 0 1 0 0 1 0)
@@ -82,6 +90,7 @@
 
 ;(find-path maze-test 1 1)
 ;(build-final-matrix maze 0 10)
+;(make-final-matrix maze 0 10)
 (define (find-path maze x y)
   (cond
     [(= (get maze x y) 2) (make-final-matrix maze 0 10)]
