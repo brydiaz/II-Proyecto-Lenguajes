@@ -75,3 +75,8 @@
 ;FINAL-TABLE GUARDA EL LABERINTO GENERADO
 (define table-with-come (user-make-point table 2))
 (define final-table (random-make-point table-with-come 3))
+
+
+(define (nthMatrix matrix x y)
+  (define tempList (nth matrix x))
+  (nth tempList y))

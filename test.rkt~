@@ -1,0 +1,9 @@
+#lang racket 
+
+(require math
+        htdp)
+
+(define (make-map N)
+  (build-matrix N N (λ (x y) (random 2))))
+
+(define M (make-map 4))

@@ -7,7 +7,8 @@
          racket/list
          data/heap
          2htdp/image
-         racket/runtime-path)
+         racket/runtime-path
+         graph)
 
 ;DEFINE LA ESTRUCTURA DEL GRAFO
 (define-signature graph^
