@@ -28,7 +28,7 @@
                          )
                        ))
                  result)))))
-
+;AÑADE ELEMENTO A LA LISTA
 (define (list-with lst idx val)
   (if (null? lst)
     lst
@@ -38,7 +38,7 @@
         (car lst))
       (list-with (cdr lst) (- idx 1) val))))
 
-;Funcion que edita un elemento de la matriz           
+;EDITA UN ELEMENTO DE LA LISTA           
 (define (set-element-matrix matrix i j value)
   (cond
     [(empty? matrix) '()]
@@ -46,7 +46,7 @@
                         (cdr matrix))]
     [else         (cons (car matrix)
                         (set-element-matrix (cdr matrix) (- i 1) j value))]))
-
+;GENERA RANDOM MAYOR A 0 Y MENOR A 7
 (define (random-xy)
   (define x (random 7))
   (cond
@@ -87,7 +87,7 @@
   (0 (2 1) (2 2)   (2 3)   0     0   (2 6) 0)
   (0 (3 1) (3 2)   (3 3)   0     0   (3 6) 0)
   (0 (4 1) (4 2)   (4 3)   0     0   (4 6) 0)
-  (0   0     0       0     0     0   (5 6) 0)
+  (0   0     0       0     0     0     6   0)
   (0   0     0       0     0     0     0   0)
   (0   0     0       0     0     0     0   0)))
 
@@ -95,7 +95,7 @@
 (define posx (random-xy))
 (define posy (random-xy))
 (define maze(set (make-maze 8 1) posx posy 6))
-
+;(define maze maze-test)
 
 ;GRAFO VACIO
 (define graph-solve (weighted-graph/undirected '()))
@@ -164,7 +164,7 @@
 (related-graph graph-solve 0 0)
 ;ENCUENTRA LA RUTA MÁS CORTA Y GUARDA EN LAS VARIABLES
 ;(define-values (quantity road) (dijkstra graph-test '(2 3)))
-
+;DUELVE UNA LISTA CON LA SOLUCION SI EXISTE
 (define (get-in-list-solve-path hash-to-change initial-key)
   (cond
     [(eq? initial-key #f) '()]
@@ -172,8 +172,20 @@
      (append (list initial-key) (get-in-list-solve-path hash-to-change (hash-ref hash-to-change initial-key)))
      ]))
 
-;(define solve (get-in-list-solve-path road '(1 1)))
+;SETEA EN UNA MATRIZ LOS VALORES DE UNA LISTA
 
+(define (back-to-matrix maze list-with-solves i)
+  (cond
+    [(= i (length list-with-solves)) maze]
+    [else
+     (define x (list-ref list-with-solves i))
+     (back-to-matrix (set maze (list-ref x 0) (list-ref x 1) 4) list-with-solves (add1 i)) 
+     ]
+    ))
+
+ 
+;(define solve (get-in-list-solve-path road '(1 1)))
+;INPUT
 (define (get-number) ; Acá definimos la funcion input
    (display "Ingrese un numero: ") ;Print
    (string->number(read-line (current-input-port) 'any)));Esto lo leo como un input de un strig
@@ -200,7 +212,7 @@
      (define solve (get-in-list-solve-path road (list x y)))
        (if (=  1 (length solve))
            (display "NO HAY SOLUCION")
-           (display solve);ACÁ SE MUESTRA LA SOLUCION
+           (back-to-matrix maze solve 0);ACÁ SE MUESTRA LA SOLUCION
        )
      ]
     [else (display "PUNTO INVALIDO")]
