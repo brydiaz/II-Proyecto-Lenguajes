@@ -1,8 +1,6 @@
 #lang racket
-(require graph
-         picturing-programs)
+(require graph)
 
-;----------------------------------FUNCIONES SOBRE MATRIX------------------------------------------;
 ;OBTENEMOS UN ELEMENTO DE LA LISTA (USAMOS LIST-REF DE UN LIST-REF)
 (define get (λ( lst y x ) (
     list-ref (list-ref lst y) x)
@@ -82,18 +80,6 @@
  )
 
 
-;SETEA EN UNA MATRIZ LOS VALORES DE UNA LISTA
-
-(define (back-to-matrix maze list-with-solves i)
-  (cond
-    [(= i (length list-with-solves)) maze]
-    [else
-     (define x (list-ref list-with-solves i))
-     (back-to-matrix (set maze (list-ref x 0) (list-ref x 1) 4) list-with-solves (add1 i)) 
-     ]
-    ))
-
-
 ;MATRIZ DE PRUEBA
 (define maze-test '(
   (0   0     0       0     0     0     0   0)
@@ -110,8 +96,7 @@
 (define posy (random-xy))
 (define maze(set (make-maze 8 1) posx posy 6))
 ;(define maze maze-test)
-;-----------------------------------------------------------------------------------------------------------------------
-;-----------------------------------------OPERACIONES SOBRE GRAFOS------------------------------------------------------
+
 ;GRAFO VACIO
 (define graph-solve (weighted-graph/undirected '()))
 
@@ -186,8 +171,19 @@
     [else
      (append (list initial-key) (get-in-list-solve-path hash-to-change (hash-ref hash-to-change initial-key)))
      ]))
-;-------------------------------------------------------------------------------------------------------------
-;--------------------------------------------FUNCIONES AUXILIARES--------------------------------------------
+
+;SETEA EN UNA MATRIZ LOS VALORES DE UNA LISTA
+
+(define (back-to-matrix maze list-with-solves i)
+  (cond
+    [(= i (length list-with-solves)) maze]
+    [else
+     (define x (list-ref list-with-solves i))
+     (back-to-matrix (set maze (list-ref x 0) (list-ref x 1) 4) list-with-solves (add1 i)) 
+     ]
+    ))
+
+ 
 ;(define solve (get-in-list-solve-path road '(1 1)))
 ;INPUT
 (define (get-number) ; Acá definimos la funcion input
@@ -203,50 +199,10 @@
         )
         (writeln 'Done)
 )))
-;-------------------------------------------------------------------------------------------------------
-;---------------------------------APARTADO GRAFICO------------------------------------------------------
-;DEFINOS LAS IMAGENES
-(define path "img/path")
-(define path2 "img/path2")
-(define obs1 "img/obs1")
-(define obs2 "img/obs2")
-(define sol "img/sol")
-(define hit "img/hit" )
 
-;CONVIERTE UNA LISTA DE NUMEROS A IMAGENES
-(define (imageList numberList)
-    (cond
-      [(empty? numberList)'()]
-      [else
-       (cond
-         [(eq? (car numberList) 0) (append (list path) (imageList (cdr numberList)))]
-         [(eq? (car numberList) 1) (append (list path2) (imageList (cdr numberList)))]
-         [(eq? (car numberList) 6) (append (list hit) (imageList (cdr numberList)))]
-         [(eq? (car numberList) 3) (append (list obs1) (imageList (cdr numberList)))]
-         [(eq? (car numberList) 2) (append (list obs2) (imageList (cdr numberList)))]
-         [(eq? (car numberList) 4) (append (list sol) (imageList (cdr numberList)))]
-         [else (append (list path2) (imageList (cdr numberList)))]
-      )]))
-
-;MUESTRA JUNTA UNA LINEA DE IMAGENES
-(define (putTogether listImages)
-  (cond
-    [(empty? listImages) '()]
-    [else (display (car listImages)) (putTogether (cdr listImages))]))
-
-;IMPRIME UNA MATRIZ DE NUMEROS EN IMAGENES
-(define (print-gui-matrix matrix)
-  (cond
-   [(empty? matrix) ]
-   [else
-    (putTogether (imageList (car matrix)))
-    (display "\n")
-    (print-gui-matrix (cdr matrix))
-    
-    ]))
 
 (define (main)
-  (print-gui-matrix maze);ACA SE MUESTRA EL LABERINTO
+  (print maze);ACA SE MUESTRA EL LABERINTO
   (define-values (quantity road) (dijkstra graph-solve (list posx posy)))
   (display "DIGITE PUNTO PARTIDA\n")
   (define x (get-number))
@@ -256,7 +212,7 @@
      (define solve (get-in-list-solve-path road (list x y)))
        (if (=  1 (length solve))
            (display "NO HAY SOLUCION")
-           (print-gui-matrix (back-to-matrix maze solve 0));ACÁ SE MUESTRA LA SOLUCION
+           (back-to-matrix maze solve 0);ACÁ SE MUESTRA LA SOLUCION
        )
      ]
     [else (display "PUNTO INVALIDO")]
