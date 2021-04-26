@@ -32,6 +32,7 @@ Ahora bien, para iniciar y observar el laberinto basta con:
 6. Si desea volver a ver el funcionamiento del laberinto basta con cerrar la ventana y volver al punto 2 de estas instrucciones.
 
 <br> 
+
 __Nota:__ Se resalta lo que significan las imágenes en el laberinto:
 
 - El fuego es la meta a la que hay que llegar
