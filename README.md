@@ -50,4 +50,4 @@ __Nota:__ Se resalta lo que significan las imágenes en el laberinto:
 **Bryan Andrey Díaz Barrientos:** https://youtu.be/T50E661TSio
 <br> 
 
-**Josué Gerardo Gutiérrez Mora:** _Link de Josué_
+**Josué Gerardo Gutiérrez Mora:** https://youtu.be/ggfGsCVpE2w
