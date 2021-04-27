@@ -44,7 +44,7 @@ __Nota:__ Se resalta lo que significan las imágenes en el laberinto:
 <br><br><br><br>
 
 ## :video_camera: Links a los vídeos explicativos de los integrantes del grupo
-**Jose Alexander Artavia Quesada:** _Link de Alex_
+**Jose Alexander Artavia Quesada:** https://www.youtube.com/watch?v=IyHqfnsVw-Q
 <br>
 
 **Bryan Andrey Díaz Barrientos:** https://youtu.be/T50E661TSio
