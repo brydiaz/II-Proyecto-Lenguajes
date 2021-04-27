@@ -47,7 +47,7 @@ __Nota:__ Se resalta lo que significan las imágenes en el laberinto:
 **Jose Alexander Artavia Quesada:** _Link de Alex_
 <br>
 
-**Bryan Andrey Díaz Barrientos:** _Link de Bryan_
+**Bryan Andrey Díaz Barrientos:** https://youtu.be/T50E661TSio
 <br> 
 
 **Josué Gerardo Gutiérrez Mora:** _Link de Josué_
